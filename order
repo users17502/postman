@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+
+function calc(){
+let total=0
+if(i1.checked) total+=100
+if(i2.checked) total+=150
+if(i3.checked) total+=200
+if(i4.checked) total+=250
+
+document.getElementById("total").innerHTML=total
+}
+
+function delivery(){
+if(delivery1.checked)
+address.style.display="block"
+else
+address.style.display="none"
+}
+
+function submitForm(){
+let name=document.getElementById("name").value
+
+if(name==""){
+alert("enter name")
+return
+}
+
+setTimeout(()=>{
+msg.innerHTML="Order placed"
+},500)
+}
+
+</script>
+</head>
+
+<body>
+
+Name:
+<input type="text" id="name"><br><br>
+
+Menu:<br>
+<input type="checkbox" id="i1" onclick="calc()">Burger<br>
+<input type="checkbox" id="i2" onclick="calc()">Pizza<br>
+<input type="checkbox" id="i3" onclick="calc()">Pasta<br>
+<input type="checkbox" id="i4" onclick="calc()">Juice<br>
+
+Total: <span id="total">0</span>
+
+<h3>Order Type</h3>
+<input type="radio" name="type" id="delivery1" onclick="delivery()">Delivery
+<input type="radio" name="type" onclick="delivery()">Pickup
+
+<div id="address" style="display:none">
+Address:
+<input type="text">
+</div>
+
+<br>
+<button onclick="submitForm()">Submit</button>
+
+<p id="msg"></p>
+
+</body>
+</html>
