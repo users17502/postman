@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+$(document).ready(function(){
+
+$(".ans").hide()
+
+$(".q").click(function(){
+
+$(".ans").slideUp()
+
+$(this).next().slideToggle()
+
+})
+
+})
+</script>
+
+</head>
+
+<body>
+
+<div class="q">What is Rails?</div>
+<div class="ans">Framework</div>
+
+<div class="q">What is MVC?</div>
+<div class="ans">Architecture</div>
+
+</body>
+</html>
