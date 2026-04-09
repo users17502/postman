@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Flight Booking System</title>
+
+<style>
+body{
+font-family:Arial;
+background:#f4f6fb;
+}
+
+.container{
+width:420px;
+margin:30px auto;
+background:white;
+padding:20px;
+border-radius:8px;
+box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+h2{
+text-align:center;
+}
+
+label{
+font-weight:bold;
+display:block;
+margin-top:10px;
+}
+
+button{
+margin-top:15px;
+padding:8px;
+width:48%;
+}
+
+#price{
+margin-top:10px;
+font-weight:bold;
+color:green;
+}
+
+#seatBox{
+display:none;
+}
+
+#msg{
+margin-top:10px;
+font-weight:bold;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+<h2>Flight Booking</h2>
+
+<form id="bookingForm">
+
+<label>Passenger Name</label>
+<input type="text" id="name" placeholder="Enter name">
+
+<label>Destination</label>
+<input type="checkbox" value="Chennai" class="dest"> Chennai (₹2000)<br>
+<input type="checkbox" value="Delhi" class="dest"> Delhi (₹3000)<br>
+<input type="checkbox" value="Mumbai" class="dest"> Mumbai (₹2500)<br>
+<input type="checkbox" value="Bangalore" class="dest"> Bangalore (₹2200)
+
+<label>Travel Class</label>
+<input type="radio" name="class" value="economy"> Economy  
+<input type="radio" name="class" value="business"> Business  
+<input type="radio" name="class" value="first"> First
+
+<div id="seatBox">
+<label>Seat Preference</label>
+<select id="seat">
+<option>Window</option>
+<option>Aisle</option>
+<option>Middle</option>
+</select>
+</div>
+
+<div id="price">Total Price: ₹0</div>
+
+<button type="submit">Submit</button>
+<button type="reset">Reset</button>
+
+</form>
+
+<div id="msg"></div>
+
+</div>
+
+<script>
+const prices = {
+Chennai:2000,
+Delhi:3000,
+Mumbai:2500,
+Bangalore:2200
+};
+
+const classMultiplier = {
+economy:1,
+business:1.5,
+first:2
+};
+
+const form = document.getElementById("bookingForm");
+const seatBox = document.getElementById("seatBox");
+const priceBox = document.getElementById("price");
+
+// show seat preference only for business/first
+document.querySelectorAll("input[name='class']").forEach(r=>{
+r.addEventListener("change",function(){
+if(this.value=="business" || this.value=="first")
+seatBox.style.display="block";
+else
+seatBox.style.display="none";
+
+calculatePrice();
+});
+});
+
+// destination change
+document.querySelectorAll(".dest").forEach(c=>{
+c.addEventListener("change",calculatePrice);
+});
+
+function calculatePrice(){
+let total=0;
+
+document.querySelectorAll(".dest:checked").forEach(c=>{
+total += prices[c.value];
+});
+
+let selectedClass =
+document.querySelector("input[name='class']:checked");
+
+if(selectedClass){
+total *= classMultiplier[selectedClass.value];
+}
+
+priceBox.innerHTML="Total Price: ₹"+total;
+}
+
+// submit with validation + AJAX
+form.addEventListener("submit",function(e){
+e.preventDefault();
+
+let name = document.getElementById("name").value.trim();
+
+// validation
+if(name.length < 2){
+alert("Passenger name must be at least 2 characters");
+return;
+}
+
+let destinations =
+document.querySelectorAll(".dest:checked");
+
+if(destinations.length==0){
+alert("Select at least one destination");
+return;
+}
+
+// AJAX simulation
+let xhr = new XMLHttpRequest();
+xhr.open("POST","fakeBackend",true);
+
+xhr.onload=function(){
+document.getElementById("msg").innerHTML=
+"Booking Successful!";
+form.reset();
+seatBox.style.display="none";
+priceBox.innerHTML="Total Price: ₹0";
+};
+
+// simulate backend delay
+setTimeout(()=>{
+xhr.onload();
+},1000);
+
+xhr.send();
+
+});
+
+// reset handler
+form.addEventListener("reset",function(){
+seatBox.style.display="none";
+priceBox.innerHTML="Total Price: ₹0";
+document.getElementById("msg").innerHTML="";
+});
+</script>
+
+</body>
+</html>
