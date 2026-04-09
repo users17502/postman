@@ -1,0 +1,16 @@
+rails g scaffold Book title:string author:string
+rails g scaffold Member name:string
+rails g scaffold Borrow book:references member:references
+rails db:migrate
+
+
+rails g scaffold User name:string email:string
+rails g scaffold Course title:string user:references
+rails g scaffold Lesson title:string course:references
+rails g scaffold Enrollment user:references course:references
+rails db:migrate
+
+rails g scaffold User name email
+rails g scaffold Recipe title ingredients user:references
+rails g scaffold Comment title user:references recipe:references
+rails db:migrate
