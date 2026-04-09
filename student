@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Student Course Registration</title>
+
+<style>
+body{
+font-family: Arial;
+background:#f4f6fb;
+}
+
+.container{
+width:350px;
+margin:50px auto;
+background:white;
+padding:20px;
+border-radius:8px;
+box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+input,select,button{
+width:100%;
+padding:8px;
+margin-top:10px;
+}
+
+button{
+background:#007bff;
+color:white;
+border:none;
+cursor:pointer;
+}
+
+#msg{
+margin-top:10px;
+font-weight:bold;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+<h3>Student Course Registration</h3>
+
+<form id="form">
+<input type="text" id="name" placeholder="Student Name" required>
+
+<input type="email" id="email" placeholder="Email" required>
+
+<select id="course" required>
+<option value="">Select Course</option>
+<option>Data Structures</option>
+<option>DBMS</option>
+<option>Operating System</option>
+<option>Computer Networks</option>
+</select>
+
+<button type="submit">Register</button>
+</form>
+
+<div id="msg"></div>
+</div>
+
+<script>
+document.getElementById("form").addEventListener("submit", function(e){
+e.preventDefault();
+
+// collect data
+var name = document.getElementById("name").value;
+var email = document.getElementById("email").value;
+var course = document.getElementById("course").value;
+
+// AJAX simulation
+var xhr = new XMLHttpRequest();
+xhr.open("POST","dummy",true);
+
+xhr.onload = function(){
+document.getElementById("msg").innerHTML =
+"Registration Successful!";
+document.getElementById("form").reset();
+};
+
+// send data
+xhr.send(JSON.stringify({
+name:name,
+email:email,
+course:course
+}));
+
+});
+</script>
+
+</body>
+</html>
