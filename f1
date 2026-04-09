@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Registration Form</title>
+</head>
+<body>
+
+<h2>Register</h2>
+
+<form onsubmit="return validateForm()">
+
+  Username: <input type="text" id="username"><br><br>
+
+  Email: <input type="text" id="email"><br><br>
+
+  Password: <input type="password" id="password"><br><br>
+
+  Confirm Password: <input type="password" id="confirm"><br><br>
+
+  <input type="submit" value="Register">
+
+</form>
+
+<script>
+function validateForm() {
+
+  let username = document.getElementById("username").value;
+  let email = document.getElementById("email").value;
+  let password = document.getElementById("password").value;
+  let confirm = document.getElementById("confirm").value;
+
+  // Username
+  if (username.length < 5) {
+    alert("Username must be at least 5 characters");
+    return false;
+  }
+
+  // Email
+  let emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+  if (!email.match(emailPattern)) {
+    alert("Enter a valid email");
+    return false;
+  }
+
+  // Password
+  let numberPattern = /[0-9]/;
+  if (password.length < 8 || !password.match(numberPattern)) {
+    alert("Password must be at least 8 characters and include a number");
+    return false;
+  }
+
+  // Confirm Password
+  if (password !== confirm) {
+    alert("Passwords do not match");
+    return false;
+  }
+
+  // If all valid
+  alert("Registration Successful!");
+  return true;
+}
+</script>
+
+</body>
+</html>
