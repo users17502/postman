@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+function calc(){
+let total=0
+
+if(document.getElementById("p1").checked) total+=100
+if(document.getElementById("p2").checked) total+=200
+if(document.getElementById("p3").checked) total+=300
+
+document.getElementById("total").innerHTML=total
+}
+
+function submitForm(){
+alert("Payment successful")
+}
+</script>
+</head>
+
+<body>
+
+<input type="checkbox" id="p1" onclick="calc()">Product1 100<br>
+<input type="checkbox" id="p2" onclick="calc()">Product2 200<br>
+<input type="checkbox" id="p3" onclick="calc()">Product3 300<br>
+
+Total: <span id="total">0</span>
+
+<h3>Card Details</h3>
+Card Number:
+<input type="text"><br>
+
+Expiry:
+<input type="date"><br>
+
+<button onclick="submitForm()">Pay</button>
+
+</body>
+</html>
